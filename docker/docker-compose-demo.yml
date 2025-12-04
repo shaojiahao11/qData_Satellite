@@ -1,0 +1,88 @@
+version: "1.1.9"
+
+services:
+  mysql57:
+    image: mysql:5.7
+    profiles: [ "demo", "mysql" ]
+    container_name: mysql57
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "sfdjfFF#s2332"
+      TZ: "Asia/Shanghai"
+#    ports:
+#      - "3306:3306"
+    volumes:
+      - ./demo/mysql/conf.d/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+      - ./demo/mysql/init:/docker-entrypoint-initdb.d:ro
+    networks:
+      qdatanet:
+        ipv4_address: 172.28.10.1
+
+  oracle11g:
+    image: wnameless/oracle-xe-11g-r2
+    profiles: [ "demo", "oracle" ]
+    container_name: oracle11g-1
+    environment:
+      - TZ=Asia/Shanghai
+      - ORACLE_ALLOW_REMOTE=true
+      - ORACLE_PASSWORD=Your!Str0ngPass
+      - NLS_LANG=AMERICAN_AMERICA.AL32UTF8
+#    ports:
+#      - "1521:1521"
+    volumes:
+      - ./demo/oracle/seed.sql:/docker-entrypoint-initdb.d/seed.sql:ro
+    networks:
+      - qdatanet
+
+  dm8-demo:
+    image: dm8:dm8_20250506_x86_rh7_64
+    profiles: [ "demo", "dm8-demo" ]
+    env_file: .env
+    privileged: true
+    restart: always
+#    ports:
+#      - "15236:5236"
+    volumes:
+      - ./demo/dm8/init-qdata.sql:/home/dmdba/initdata/init-qdata.sql
+      - ./demo/dm8/entrypoint.sh:/entrypoint.sh
+    environment:
+      - TZ=${TZ}
+      - CASE_SENSITIVE=${CASE_SENSITIVE}
+      - SYSDBA_PWD=${SYSDBA_PWD}
+      - SYSAUDITOR_PWD=${SYSAUDITOR_PWD}
+      - QDATA_USER=${DEMO_USER}
+      - QDATA_PWD=${DEMO_PWD}
+    healthcheck:
+      test: [ "CMD-SHELL", "echo > /dev/tcp/127.0.0.1/5236" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+    networks:
+      - qdatanet
+
+  kingbase:
+    image: kingbase_v009r001c002b0014_single_x86:v1
+    profiles: [ "demo", "kingbase" ]
+    env_file: .env
+    restart: always
+    privileged: true
+    user: kingbase
+    working_dir: /home/kingbase
+    entrypoint: ["/bin/bash", "/home/kingbase/docker-entrypoint.sh"]
+    environment:
+      NEED_START: "yes"
+      ENABLE_CI: "yes"
+      DB_USER: "qdata_dev"
+      DB_MODE: "mysql"
+      PATH: "/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/kingbase/install/kingbase/bin:"
+      USER: "kingbase"
+      PASSWORD: "qdata_dev"
+#    ports:
+#      - "54321:54321"
+    # volumes:
+    #   - /data/kingbase:/home/kingbase/userdata:rw
+    networks:
+      - qdatanet
+    security_opt:
+      - label=disable

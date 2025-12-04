@@ -1,0 +1,100 @@
+######################################################################
+# Build Tools
+
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+######################################################################
+# IDE
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### JRebel ###
+rebel.xml
+
+### NetBeans ###
+nbproject/private/
+build/*
+nbbuild/
+dist/
+!*/anivia-ui/dist/
+!*/sso-ui/dist/
+!*/sso-ui/node_modules/
+!*/anivia-ui/node_modules/
+/anivia-ui/dist/
+/sso-ui/dist/
+/anivia-ui/node_modules/
+/sso-ui/node_modules/
+!*/resources/static
+nbdist/
+.nb-gradle/
+
+######################################################################
+# Others
+*.log
+*.xml.versionsBackup
+*.swp
+
+!*/build/*.java
+!*/build/*.html
+!*/build/*.xml
+
+
+
+### 组件库编译后的文件 ###
+storybook-static/
+
+### pdman 备份文件 ###
+/sql/pdman/.back_anivia/
+sql/pdman/.back_数据中台
+
+### Anivia-App ###
+######################################################################
+# Build Tools
+
+Anivia-App/unpackage/*
+Anivia-App/node_modules/*
+
+######################################################################
+# Development Tools
+
+Anivia-App/.idea/*
+Anivia-App/.vscode/*
+Anivia-App/.hbuilderx/*
+Anivia-App/uni_modules/*
+Anivia-App/package-lock.json
+/.gitee/
+/qdata-etl/src/main/java/tech/qiantong/qdata/spark/etl/EtlApplication2.java
+
+docker/dolphinscheduler/resource/default/resources/spark-jar/qdata-etl-3.8.8.jar
+docker/dolphinscheduler/soft/flink
+docker/dolphinscheduler/soft/spark
+docker/nginx/dist
+docker/qdata-quality/job-log
+docker/qdata-server/logs
+docker/qdata-server/upload
+
+qdata-server/docker/qdata-server.jar
+qdata-quality/docker/qdata-quality.jar
+
+qdata-server/src/main/resources/application-prod.yml
+
+# Allow qdata-ui/dist to be committed (for deployment)
+!qdata-ui/dist/
+!qdata-ui/dist/**
