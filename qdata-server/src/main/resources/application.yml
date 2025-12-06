@@ -67,7 +67,7 @@ spring:
     # 国际化资源文件路径
     basename: i18n/messages
   profiles:
-    active: prod  # 默认激活的环境，可以在启动时覆盖
+    active: dev  # 默认激活的环境，可以在启动时覆盖
   config:
     import:
       - "application-${spring.profiles.active}.yml"
