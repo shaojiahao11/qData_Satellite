@@ -178,12 +178,19 @@
                 <version>${qdata.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>tech.qiantong</groupId>
+                <artifactId>qdata-module-system-biz</artifactId>
+                <version>${qdata.version}</version>
+            </dependency>
+
             <!-- 通用工具-->
             <dependency>
                 <groupId>tech.qiantong</groupId>
                 <artifactId>qdata-common</artifactId>
                 <version>${qdata.version}</version>
             </dependency>
+
 
         </dependencies>
     </dependencyManagement>

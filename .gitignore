@@ -94,7 +94,3 @@ qdata-server/docker/qdata-server.jar
 qdata-quality/docker/qdata-quality.jar
 
 qdata-server/src/main/resources/application-prod.yml
-
-# Allow qdata-ui/dist to be committed (for deployment)
-!qdata-ui/dist/
-!qdata-ui/dist/**
