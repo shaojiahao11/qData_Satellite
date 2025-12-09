@@ -86,32 +86,6 @@
 
     <build>
         <plugins>
-            <!-- Spring Boot 打包插件 -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
-            <!-- 资源处理插件：排除 application-*.yml 不打入 JAR -->
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.1</version>
-                <configuration>
-                    <resources>
-                        <resource>
-                            <directory>src/main/resources</directory>
-                            <excludes>
-                                <!-- 排除所有环境配置文件，不打包进 JAR -->
-                                <exclude>application.yml</exclude>
-                                <exclude>application-dev.yml</exclude>
-                                <exclude>application-prod.yml</exclude>
-                                <!-- 如果有 application.properties 也排除 -->
-                                <!-- <exclude>application.properties</exclude> -->
-                            </excludes>
-                        </resource>
-                    </resources>
-                </configuration>
-            </plugin>
             <!-- maven-compiler-plugin 配置 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
