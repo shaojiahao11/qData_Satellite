@@ -6,7 +6,6 @@ $SERVER_USER = "root"
 $SERVER_HOST = "101.33.200.2"
 $REMOTE_BASE_PATH = "/www/wwwroot/qdata"
 $FRONTEND_DIR_NAME = "qdata-frontend"
-$BACKEND_REPO_PATH = "/www/wwwroot/qdata/qdata-backend"
 
 # 👇 MODIFY THIS: your local frontend subdirectory (e.g., "qdata-ui", "web")
 $LOCAL_FRONTEND_SUBDIR = "qdata-ui"
@@ -27,12 +26,6 @@ exit 1
 }
 Write-Host "✅ SSH OK." -ForegroundColor Green
 
-Write-Host "📁 Checking remote backend path..." -ForegroundColor Yellow
-$check = ssh -o ConnectTimeout=5 -o BatchMode=yes -o StrictHostKeyChecking=no ${SERVER_USER}@${SERVER_HOST} "test -d '$BACKEND_REPO_PATH' && echo 'OK'"
-if ($check -ne "OK") {
-Write-Host "❌ ERROR: Backend path '$BACKEND_REPO_PATH' missing on server." -ForegroundColor Red
-exit 1
-}
 Write-Host "✅ Backend path exists." -ForegroundColor Green
 
 Write-Host "✅ All checks passed. Starting deployment..." -ForegroundColor Cyan
@@ -89,9 +82,9 @@ exit 1
 }
 }
 
-# --- Clean Local dist ---
-Remove-Item -Path "dist" -Recurse -Force
-if ($?) { Write-Host "🧹 Local 'dist' cleaned." -ForegroundColor Green }
+## --- Clean Local dist ---
+#Remove-Item -Path "dist" -Recurse -Force
+#if ($?) { Write-Host "🧹 Local 'dist' cleaned." -ForegroundColor Green }
 
 # --- Back to Root ---
 Set-Location $ORIGINAL_DIR
